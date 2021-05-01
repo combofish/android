@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DictationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_remember_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:text="记忆用时"
+            android:textSize="15sp" />
+
+        <Chronometer
+            android:id="@+id/chronometer_dictation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:text="第几个"
+        android:textSize="30sp" />
+
+    <RadioGroup
+        android:id="@+id/select_king"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/blankInKingGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/king"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/King" />
+
+        <RadioButton
+            android:id="@+id/little_king"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/littleKing" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/select_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/blankInColorGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/spades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spades" />
+
+        <RadioButton
+            android:id="@+id/hearts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hearts" />
+
+        <RadioButton
+            android:id="@+id/plum_blossom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plumBlossom" />
+
+        <RadioButton
+            android:id="@+id/square_piece"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/squarePiece" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/select_number1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/blankInNumberGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/card1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/a" />
+
+        <RadioButton
+            android:id="@+id/card2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_2" />
+
+        <RadioButton
+            android:id="@+id/card3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_3" />
+
+        <RadioButton
+            android:id="@+id/card4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_4" />
+
+        <RadioButton
+            android:id="@+id/card5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_5" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/select_number2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/blankInNumberGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/card6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_6" />
+
+        <RadioButton
+            android:id="@+id/card7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_7" />
+
+        <RadioButton
+            android:id="@+id/card8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_8" />
+
+        <RadioButton
+            android:id="@+id/card9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_9" />
+
+        <RadioButton
+            android:id="@+id/card10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_10" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/select_number3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/blankInNumberGroup3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:visibility="gone" />
+
+        <RadioButton
+            android:id="@+id/card11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/j" />
+
+        <RadioButton
+            android:id="@+id/card12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/q" />
+
+        <RadioButton
+            android:id="@+id/card13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/k" />
+
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/ll_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/submit"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/upPage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/upPage"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/currentPoker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/pleaseSelect"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/nextPage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/nextPage"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="35dp"
+            android:gravity="center"
+            android:text="@string/endDictation"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
