@@ -1,5 +1,6 @@
 package com.example.pokerrem2
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,6 +53,9 @@ class HistoryActivity : AppCompatActivity() {
             Log.i(TAG, "你还没有历史记录")
             Toast.makeText(applicationContext, "${applicationContext.getString(R.string.noHistoryFound)}", Toast.LENGTH_SHORT)
                 .show()
+
+            var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
