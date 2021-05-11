@@ -8,6 +8,7 @@ import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.example.pokerrem2.data.DataGlobal
 
 
 class DictationActivity : AppCompatActivity(), View.OnClickListener {
@@ -80,7 +81,7 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
     private fun initOriginalPokers() {
         originalBundle = intent.getBundleExtra("pokerBundle")
         Log.i(TAG, originalBundle.toString())
-        Log.i(TAG, originalBundle.get("0").toString())
+        // Log.i(TAG, originalBundle.get("0").toString())
     }
 
 
@@ -88,13 +89,13 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
         clearAllRadioGroup()
         currentPager = i
 
-        var pageAdd = false
+
         kingStr = ""
         numberStr = ""
         colorStr = ""
-        //tv.setText("第${i}
+
         tv.setText("$i")
-        if (!dictationPokers[i - 1].isBlank()) tv2.setText(dictationPokers[i - 1])
+        if (dictationPokers[i - 1].isNotBlank()) tv2.setText(dictationPokers[i - 1])
         else tv2.setText("${applicationContext.getString(R.string.pleaseSelect)}")
 
         if (currentPager == 54) endDictation.setText("${applicationContext.getString(R.string.endRecite)}")
@@ -102,14 +103,97 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    // 尽量做到与外界无关
+    private fun updateLocalDictationPoker(str: String, i: Int) {
+
+    }
+
+    private fun endStr(str: String): String {
+        return when {
+            str.endsWith("A") -> "A"
+            str.endsWith("2") -> "2"
+            str.endsWith("3") -> "3"
+            str.endsWith("4") -> "4"
+            str.endsWith("5") -> "5"
+            str.endsWith("6") -> "6"
+            str.endsWith("7") -> "7"
+            str.endsWith("8") -> "8"
+            str.endsWith("9") -> "9"
+            str.endsWith("10") -> "10"
+            str.endsWith("J") -> "J"
+            str.endsWith("Q") -> "Q"
+            str.endsWith("K") -> "K"
+            else -> ""
+        }
+    }
+
+    // 尽量做到与外界无关
+    // 有点麻烦
+    private fun updateClassifiedDictationPoker(str: String, i: Int) {
+        if(!DataGlobal.classifiedDictionPokerInit){
+            for (i in 1..NUM_PAGES) {
+                Log.i("init", "$i") // 1-54
+                DataGlobal.classifiedDictionPokers.add("")
+            }
+            DataGlobal.classifiedDictionPokerInit = true
+        }
+
+        val endString = endStr(str)
+        when {
+            str.equals(applicationContext.getString(R.string.King)) -> {
+                DataGlobal.classifiedDictionPokers.add(i, "classE")
+            }
+
+            str.equals(applicationContext.getString(R.string.littleKing)) -> {
+                DataGlobal.classifiedDictionPokers.add(i, "classF")
+            }
+            str.startsWith(applicationContext.getString(R.string.spades)) -> {
+                DataGlobal.classifiedDictionPokers.add(i, "classA${endString}")
+            }
+            str.startsWith(applicationContext.getString(R.string.hearts)) -> {
+                DataGlobal.classifiedDictionPokers.add(i, "classB${endString}")
+            }
+            str.startsWith(applicationContext.getString(R.string.plumBlossom)) -> {
+                DataGlobal.classifiedDictionPokers.add(i, "classC${endString}")
+            }
+            str.startsWith(applicationContext.getString(R.string.squarePiece)) -> {
+                DataGlobal.classifiedDictionPokers.add(i, "classD${endString}")
+            }
+        }
+        // 是花色牌
+        Log.i(TAG, "Now Data global Classified pokers is :${DataGlobal.classifiedDictionPokers}")
+    }
+
     private fun updateDictationPoker(str: String) {
+        Log.i(TAG, "Update Poker get Str: ${str}. Setting to position: ${currentPager - 1}")
         dictationPokers[currentPager - 1] = str
-        if (str in listOf("大王", "小王")) {
+
+        // 更新标准化扑克牌
+        updateClassifiedDictationPoker(str, currentPager - 1)
+        Log.i(TAG, "Now dictation pokers is: ${dictationPokers}")
+
+        /**
+        numberStr = ""
+        colorStr = ""
+        kingStr = ""
+         */
+
+        //if (str in listOf("大王", "小王")) {
+
+
+        if (str in listOf(
+                "${applicationContext.getString(R.string.King)}",
+                "${applicationContext.getString(R.string.littleKing)}"
+            )
+        ) {
+            Log.i(TAG, "Clear NumberStr and ColorStr")
             numberStr = ""
             colorStr = ""
         } else {
+            Log.i(TAG, "Clear KingStr")
             kingStr = ""
         }
+
         updateTextView()
     }
 
@@ -127,8 +211,17 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
                     when (group) {
                         selectKing -> {
                             kingStr = findViewById<RadioButton>(checkedId).text as String
-                            updateDictationPoker(kingStr)
-                            selectKingClearOtherRadioGroup()
+
+                            if (kingStr.isNotBlank()) {
+                                Log.i(
+                                    TAG,
+                                    "selectKing. then update dictation pokers with kingStr: ${kingStr}"
+                                )
+                                updateDictationPoker(kingStr)
+                                // 典型化
+                                //updateDictationPoker(kingStrToClassifiedStr(kingStr))
+                                selectKingClearOtherRadioGroup()
+                            }
                         }
                         selectColor -> {
                             colorStr = findViewById<RadioButton>(checkedId).text as String
@@ -165,6 +258,9 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
         selectColorClearOtherRadioGroup()
         if (!colorStr.isBlank() && !numberStr.isBlank()) {
             updateDictationPoker("${colorStr}${numberStr}")
+
+            // 典型化
+            //updateDictationPoker("${colorStrToClassifiedStr(colorStr)}${numberStr}")
         }
     }
 
@@ -240,6 +336,9 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
      * 跳转去结果页面
      */
     private fun goToResultPage() {
+        // dictationPokers = updateDictationPokersToClassifiedPokers(dictationPokers)
+        Log.i(TAG, "Classified dictation pokers: ${dictationPokers}")
+
         var intent = Intent(this, ResultActivity::class.java)
         var dictationBundle = Bundle()
         for (i in 0..53) {
@@ -252,7 +351,7 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
         //chronometerDictation.format = "%s"
         chronometerDictation.stop()
         val toStr = chronometerDictation.text.toString()
-        dictationTime = toStr.substring(toStr.length - 5 )
+        dictationTime = toStr.substring(toStr.length - 5)
         intent.putExtra("DictationTime", dictationTime)
         intent.putExtra("RememberTime", rememberTime)
 
@@ -261,6 +360,24 @@ class DictationActivity : AppCompatActivity(), View.OnClickListener {
         //bundle.putSerializable("dictationPokers", this.dictationPokers)
         //intent.putParcelableArrayListExtra("dictationPokers",dictationPokers.toTypedArray()cncn)
         startActivity(intent)
+    }
+
+    private fun colorStrToClassifiedStr(str: String): String {
+        return when (str) {
+            applicationContext.getString(R.string.spades) -> "classA"
+            applicationContext.getString(R.string.hearts) -> "classB"
+            applicationContext.getString(R.string.squarePiece) -> "classC"
+            applicationContext.getString(R.string.plumBlossom) -> "classD"
+            else -> ""
+        }
+    }
+
+    private fun kingStrToClassifiedStr(str: String): String {
+        return when (str) {
+            applicationContext.getString(R.string.littleKing) -> "classF"
+            applicationContext.getString(R.string.King) -> "classE"
+            else -> ""
+        }
     }
 
     private fun clearAllRadioGroup() {

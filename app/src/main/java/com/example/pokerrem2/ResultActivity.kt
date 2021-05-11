@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokerrem2.adapter.MyRecycleViewAdapter
 import com.example.pokerrem2.adapter.ResRecycleViewAdapter
+import com.example.pokerrem2.data.DataGlobal
 import com.example.pokerrem2.data.Poker
 import com.example.pokerrem2.data.ReciteRecord
 import com.example.pokerrem2.utils.DBHandler
@@ -69,7 +70,9 @@ class ResultActivity : AppCompatActivity(), View.OnClickListener {
         val gridLayoutManager = GridLayoutManager(this, 5)
         recyclerView.layoutManager = gridLayoutManager
 
-        val resRecycleViewAdapter = ResRecycleViewAdapter(originalpokers,dictationpokers,this)
+        // 更新到标准类型判断
+        val resRecycleViewAdapter = ResRecycleViewAdapter(DataGlobal.pokers,DataGlobal.classifiedDictionPokers,this)
+        // val resRecycleViewAdapter = ResRecycleViewAdapter(originalpokers,dictationpokers,this)
         recyclerView.adapter = resRecycleViewAdapter
 
         Log.i("tag", "onCreate")
@@ -126,8 +129,10 @@ class ResultActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initTwoPokers() {
+        /**
         dictationBundle = intent.getBundleExtra("dictationBundle")
         originalBundle = intent.getBundleExtra("originalBundle")
+
         Log.i(TAG, dictationBundle.getString("0").toString())
         Log.i(TAG, originalBundle.getString("0").toString())
 
@@ -135,6 +140,12 @@ class ResultActivity : AppCompatActivity(), View.OnClickListener {
             dictationpokers.add(dictationBundle.getString("$i").toString())
             originalpokers.add(originalBundle.getString("$i").toString())
         }
+        */
+
+        // 改用全局数据
+        dictationpokers = DataGlobal.classifiedDictionPokers
+        originalpokers = DataGlobal.pokers
+
         Log.i(TAG, dictationpokers.toString())
         Log.i(TAG, originalpokers.toString())
 

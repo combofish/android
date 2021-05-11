@@ -2,8 +2,9 @@ package com.example.pokerrem2.data
 
 
 class Poker {
-    val num = listOf<String>("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "k")
-    val type = listOf("黑桃", "红桃", "梅花", "方片", "大王", "小王")
+    val num = listOf<String>("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
+    // val type = listOf("黑桃", "红桃", "梅花", "方片", "大王", "小王")
+    val type = listOf("classA","classB","classC","classD","classE","classF")
     var pokers = mutableListOf<String>()
     var randomPoker = mutableListOf<String>()
         get() {

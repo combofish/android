@@ -15,6 +15,7 @@ import com.example.pokerrem2.adapter.MyRecycleViewAdapter.MyViewHolder
 class MyRecycleViewAdapter(private var pokers: MutableList<String>, private val context: Context) :
     RecyclerView.Adapter<MyViewHolder>() {
 
+    private val TAG = "MyRecycleViewAdapter"
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -34,30 +35,32 @@ class MyRecycleViewAdapter(private var pokers: MutableList<String>, private val 
         position: Int
     ) {
         val poker = pokers[position]
-        val selectString = poker.substring(0, 1)
+        val selectString = poker.substring(0, 6)
+        Log.i(TAG,"Select String: ${selectString}")
+
         when (selectString) {
-            "大" -> {
+            "classE" -> {
                 holder.tv.setText("")
                 holder.iv.setImageResource(R.drawable.poker_big_y)
             }
-            "小" -> {
+            "classF" -> {
                 holder.tv.setText("")
                 holder.iv.setImageResource(R.drawable.poker_little_y)
             }
-            "黑" -> {
-                holder.tv.setText(poker.substring(2))
+            "classA" -> {
+                holder.tv.setText(poker.substring(6))
                 holder.iv.setImageResource(R.drawable.poker_black_spades)
             }
-            "红" -> {
-                holder.tv.setText(poker.substring(2))
+            "classB" -> {
+                holder.tv.setText(poker.substring(6))
                 holder.iv.setImageResource(R.drawable.poker_red_shade)
             }
-            "梅" -> {
-                holder.tv.setText(poker.substring(2))
+            "classC" -> {
+                holder.tv.setText(poker.substring(6))
                 holder.iv.setImageResource(R.drawable.poker_three_shadow)
             }
-            "方" -> {
-                holder.tv.setText(poker.substring(2))
+            "classD" -> {
+                holder.tv.setText(poker.substring(6))
                 holder.iv.setImageResource(R.drawable.poker_rand)
             }
         }

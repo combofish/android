@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokerrem2.adapter.MyRecycleViewAdapter
+import com.example.pokerrem2.data.DataGlobal
 import com.example.pokerrem2.data.Poker
 import com.example.pokerrem2.utils.StatusBarUtils
 
@@ -29,18 +30,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         /**
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-           // getWindow().getDecorView()
-             //   .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        // getWindow().getDecorView()
+        //   .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
-        */
+         */
         // StatusBarUtils.setStatusBarLightMode(window)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
+        // 进行全局存储
         pokers = Poker().randomPoker
+        DataGlobal.pokers = pokers
+        Log.i(TAG, "Global pokers: ${DataGlobal.pokers}")
+
+
         val recyclerView = findViewById<RecyclerView>(R.id.rv)
 
         val gridLayoutManager = GridLayoutManager(this, 5)
@@ -75,6 +81,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val randomPoker = Poker().randomPoker
                 myRecycleViewAdapter?.changePokers(randomPoker)
                 pokers = randomPoker
+                // 全局更新
+                DataGlobal.pokers = randomPoker
+                Log.i(TAG, "Global pokers: ${DataGlobal.pokers}")
 
                 // 清零计时
                 timer1.stop()
